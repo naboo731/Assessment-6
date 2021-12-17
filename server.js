@@ -27,6 +27,7 @@ app.get('/css', (req, res) => {
 
 app.get('/api/robots', (req, res) => {
     try {
+        rollbar.info('getting bots successful')
         res.status(200).send(botsArr)
     } catch (error) {
         console.log('ERROR GETTING BOTS', error)
@@ -40,6 +41,7 @@ app.get('/api/robots/five', (req, res) => {
         let shuffled = shuffleArray(bots)
         let choices = shuffled.slice(0, 5)
         let compDuo = shuffled.slice(6, 8)
+        rollbar.info('getting 5 bots successful')
         res.status(200).send({choices, compDuo})
     } catch (error) {
         console.log('ERROR GETTING FIVE BOTS', error)
@@ -68,9 +70,11 @@ app.post('/api/duel', (req, res) => {
         // comparing the total health to determine a winner
         if (compHealthAfterAttack > playerHealthAfterAttack) {
             playerRecord.losses++
+            rollbar.info('player lossed')
             res.status(200).send('You lost!')
         } else {
             playerRecord.losses++
+            rollbar.info('player won')
             res.status(200).send('You won!')
         }
     } catch (error) {
@@ -82,6 +86,7 @@ app.post('/api/duel', (req, res) => {
 
 app.get('/api/player', (req, res) => {
     try {
+        rollbar.info('player recieved player status successfully')
         res.status(200).send(playerRecord)
     } catch (error) {
         console.log('ERROR GETTING PLAYER STATS', error)
