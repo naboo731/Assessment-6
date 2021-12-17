@@ -10,7 +10,7 @@ const rollbar = new Rollbar({
   captureUnhandledRejections: true,
 })
 
-rollbar.log('Hello world!')
+rollbar.log('hello world!')
 
 app.use(express.json())
 
